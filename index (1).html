@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aditya — Website Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--s1:#0a0a0a;--s2:#111;--line:#262626;--line2:#3a3a3a;--tx:#f5f5f5;--mu:#9a9a9a;
+--d:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;--b:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 1rem/1.65 var(--b);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+svg{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--d);margin:0;line-height:1.05;letter-spacing:-.02em}
+p{margin:0}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+section{padding:clamp(4.5rem,9vw,8rem) 0}
+.grid-bg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;padding:.9rem 0;padding-top:calc(.9rem + env(safe-area-inset-top,0px));transition:background .3s,border-color .3s,padding .3s;border-bottom:1px solid transparent}
+nav.solid{background:rgba(0,0,0,.82);backdrop-filter:blur(14px);border-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between}
+.logo{font:700 1.15rem var(--d);letter-spacing:.06em}
+.logo span{color:var(--mu)}
+.links{display:flex;gap:.3rem;align-items:center}
+.links a{padding:.5rem 1rem;border-radius:99px;color:var(--mu);font-size:.95rem;transition:.25s}
+.links a:hover,.links a.on{color:#fff;background:var(--s2)}
+.links .cta{background:#fff;color:#000;margin-left:.5rem;font-weight:500}
+.links .cta:hover{background:#d8d8d8;color:#000}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line2);border-radius:12px;background:var(--s1);cursor:pointer;position:relative}
+.burger i{position:absolute;left:12px;right:12px;height:2px;background:#fff;transition:.3s}
+.burger i:nth-child(1){top:16px}.burger i:nth-child(2){top:26px}
+.burger[aria-expanded=true] i:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger[aria-expanded=true] i:nth-child(2){top:21px;transform:rotate(-45deg)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;padding:.85rem 1.7rem;border-radius:99px;border:1px solid #fff;font:500 .98rem var(--b);cursor:pointer;transition:transform .25s,background .25s,color .25s}
+.btn svg{width:18px;height:18px;transition:transform .25s}
+.btn:hover svg{transform:translateX(4px)}
+.btn.p{background:#fff;color:#000}.btn.p:hover{background:#d8d8d8}
+.btn.g{background:transparent;color:#fff;border-color:var(--line2)}.btn.g:hover{border-color:#fff;background:var(--s2)}
+.btn:active{transform:scale(.97)}
+
+/* hero */
+.hero{padding-top:9rem;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.35;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000,transparent)}
+.hero>.wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line2);background:var(--s1);border-radius:99px;padding:.45rem 1rem;font-size:.78rem;letter-spacing:.14em;color:#ddd}
+.badge b{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.5)}70%,100%{box-shadow:0 0 0 9px rgba(255,255,255,0)}}
+.hero h1{font-size:clamp(2.6rem,6.4vw,5.4rem);margin:1.6rem 0 1.5rem;font-weight:700}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 .ln:nth-child(2) span{animation-delay:.12s}.hero h1 .ln:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.lead{color:var(--mu);font-size:1.12rem;max-width:34rem}
+.btns{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2.2rem}
+.quotes{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.6rem}
+.quotes span{font-size:.86rem;color:var(--mu);border:1px dashed var(--line2);border-radius:10px;padding:.5rem .85rem}
+
+.frame{position:relative;border:1px solid var(--line2);border-radius:26px;padding:12px;background:var(--s1);box-shadow:0 40px 90px -30px rgba(255,255,255,.09),0 0 0 8px #050505}
+.frame::before,.frame::after{content:"";position:absolute;width:14px;height:14px;border:1px solid #fff}
+.frame::before{top:-22px;left:-22px;border-right:0;border-bottom:0}
+.frame::after{bottom:-22px;right:-22px;border-left:0;border-top:0}
+.frame svg{border-radius:16px;width:100%;height:auto}
+.float{position:absolute;background:#fff;color:#000;border-radius:14px;padding:.6rem .95rem;font:500 .82rem var(--b);box-shadow:0 12px 30px rgba(0,0,0,.6)}
+.float.a{left:-1.4rem;bottom:2.2rem}.float.b{right:-.8rem;top:1.6rem;background:var(--s2);color:#fff;border:1px solid var(--line2)}
+.dots{position:absolute;right:-30px;bottom:-60px;width:110px;height:70px;background:radial-gradient(#555 1.4px,transparent 1.6px) 0 0/14px 14px;z-index:-1}
+
+/* section heads */
+.head{margin-bottom:3rem;max-width:40rem}
+.head h2{font-size:clamp(2.2rem,5vw,3.8rem)}
+.head p{color:var(--mu);margin-top:1rem;font-size:1.08rem}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:22px;padding:1.7rem;transition:border-color .3s,transform .3s,background .3s;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 20px 40px -28px #000}
+.card:hover{border-color:var(--line2);background:var(--s2);transform:translateY(-4px)}
+.card h3{font-size:1.25rem;margin:1.1rem 0 .5rem}
+.card p{color:var(--mu);font-size:.97rem}
+.ic{width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);display:grid;place-items:center;background:#000}
+.ic svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* info */
+.info{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+.about{border:1px solid var(--line);border-radius:26px;padding:clamp(1.6rem,3vw,2.6rem);background:var(--s1)}
+.about p{color:#cfcfcf;font-size:1.08rem}.about p+p{margin-top:1.2rem;color:var(--mu)}
+.focus{margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.focus h3{font-size:1.05rem;margin-bottom:1rem}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.chip{border:1px solid var(--line2);border-radius:99px;padding:.4rem .95rem;font-size:.9rem;color:#ddd;transition:.25s}
+.chip:hover{background:#fff;color:#000}
+.cards4{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* project */
+.proj{border:1px solid var(--line);border-radius:30px;padding:clamp(.8rem,2vw,1.4rem);background:var(--s1);display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.2rem,3vw,2.6rem);align-items:center}
+.proj+.proj{margin-top:1.2rem}
+.proj.alt{grid-template-columns:.7fr 1.3fr}.proj.alt .browser{order:2}
+@media(max-width:960px){.proj.alt{grid-template-columns:1fr}.proj.alt .browser{order:0}}
+.browser{border:1px solid var(--line2);border-radius:18px;overflow:hidden;background:#000;display:block}
+.bar{display:flex;align-items:center;gap:.5rem;padding:.7rem .9rem;border-bottom:1px solid var(--line);background:var(--s2)}
+.bar i{width:10px;height:10px;border-radius:50%;background:#444}
+.url{flex:1;margin-left:.6rem;background:#000;border:1px solid var(--line);border-radius:99px;padding:.25rem .9rem;font-size:.78rem;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot{overflow:hidden;position:relative}
+.shot svg{width:100%;height:auto;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.browser:hover .shot svg{transform:scale(1.06)}
+.shot::after{content:"Visit website";position:absolute;inset:auto 1rem 1rem auto;background:#fff;color:#000;padding:.5rem 1rem;border-radius:99px;font-size:.85rem;font-weight:500;opacity:0;transform:translateY(8px);transition:.3s}
+.browser:hover .shot::after{opacity:1;transform:none}
+.cat{font-size:.78rem;letter-spacing:.14em;color:var(--mu);border:1px solid var(--line2);display:inline-block;border-radius:99px;padding:.3rem .85rem}
+.pinfo h3{font-size:clamp(2rem,4vw,3rem);margin:1.1rem 0}
+.pinfo p{color:var(--mu)}
+.plink{display:inline-block;margin-top:1.2rem;border-bottom:1px solid var(--line2);color:#fff;font-size:.95rem;word-break:break-all;transition:border-color .25s}
+.plink:hover{border-color:#fff}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.5rem 0}
+.tags code{font:500 .8rem var(--b);border:1px solid var(--line2);background:#000;border-radius:8px;padding:.3rem .7rem;color:#ddd}
+.soon{margin-top:1.2rem;border:1px dashed var(--line2);border-radius:22px;padding:1.6rem;text-align:center;color:var(--mu);font-size:.95rem}
+
+/* services */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.why{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:start}
+.why-list{border:1px solid var(--line);border-radius:26px;background:var(--s1);overflow:hidden}
+.why-list div{padding:1.7rem 1.9rem;transition:background .3s}
+.why-list div+div{border-top:1px solid var(--line)}
+.why-list div:hover{background:var(--s2)}
+.why-list h3{font-size:1.3rem;margin-bottom:.4rem}
+.why-list p{color:var(--mu)}
+
+/* contact */
+.contact{border:1px solid var(--line2);border-radius:34px;background:var(--s1);padding:clamp(1.6rem,5vw,4rem);display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;opacity:.18;pointer-events:none;-webkit-mask-image:linear-gradient(120deg,#000,transparent 60%);mask-image:linear-gradient(120deg,#000,transparent 60%)}
+.contact>*{position:relative}
+.contact h2{font-size:clamp(2.4rem,5.5vw,4.4rem)}
+.contact .lead{margin:1.3rem 0 2rem}
+.ig{display:flex;align-items:center;gap:1rem;margin-top:2rem;border:1px solid var(--line2);border-radius:18px;padding:1rem 1.2rem;background:#000;transition:.3s;max-width:24rem}
+.ig:hover{border-color:#fff;transform:translateY(-3px)}
+.ig small{display:block;color:var(--mu);font-size:.8rem;line-height:1.3}
+.ig span{font-weight:500;word-break:break-all}
+form{border:1px solid var(--line2);border-radius:24px;background:#000;padding:clamp(1.2rem,3vw,2rem);display:grid;gap:1.1rem;align-content:start}
+label{display:grid;gap:.45rem;font-size:.88rem;color:var(--mu)}
+input,select,textarea{width:100%;background:var(--s1);border:1px solid var(--line2);border-radius:12px;color:#fff;font:400 1rem var(--b);padding:.85rem 1rem;transition:border-color .25s,background .25s;min-height:48px}
+textarea{min-height:130px;resize:vertical}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23fff' stroke-width='1.6'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#fff;background:var(--s2)}
+.note{font-size:.88rem;color:var(--mu);min-height:1.3em}
+
+footer{border-top:1px solid var(--line);padding:3.5rem 0 2.2rem;background:#000}
+.foot{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.foot h4{font:700 1.5rem var(--d);margin:0 0 .3rem;letter-spacing:.05em}
+.foot p{color:var(--mu)}
+.foot a{border-bottom:1px solid var(--line2);transition:.25s}.foot a:hover{border-color:#fff}
+.copy{margin-top:2.5rem;padding-top:1.4rem;border-top:1px solid var(--line);color:#6f6f6f;font-size:.86rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+/* cursor + reveal */
+.cur{position:fixed;left:0;top:0;width:34px;height:34px;border:1px solid #fff;border-radius:50%;pointer-events:none;z-index:99;mix-blend-mode:difference;opacity:0;transition:width .25s,height .25s,opacity .3s,background .25s;transform:translate(-50%,-50%)}
+.cur.big{width:64px;height:64px;background:#fff}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:960px){
+.hero>.wrap,.info,.proj,.why,.contact{grid-template-columns:1fr}
+.hero{padding-top:7.5rem}.frame{margin:1.4rem 1rem 0 0}
+.g3{grid-template-columns:1fr 1fr}
+.burger{display:block}
+.links{position:fixed;inset:0;top:0;flex-direction:column;justify-content:center;gap:.6rem;background:#000;opacity:0;pointer-events:none;transition:opacity .3s;z-index:-1}
+.links.open{opacity:1;pointer-events:auto}
+.links a{font:700 2rem var(--d);color:#fff;padding:.6rem 1.5rem}
+.links .cta{margin:1rem 0 0;font:500 1rem var(--b);padding:.9rem 1.8rem}
+.burger{position:relative;z-index:2}.logo{position:relative;z-index:2}
+}
+@media(max-width:620px){
+.cards4,.g3{grid-template-columns:1fr}
+.btn{width:100%}.float.a{left:-.4rem}.float.b{right:-.4rem}
+.frame::before,.frame::after{display:none}.frame{box-shadow:none}
+.shot::after{opacity:1;transform:none}
+.copy,.foot{flex-direction:column}
+}
+@media(hover:none){.cur{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv,.hero h1 .ln span{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+
+<nav id="nav"><div class="wrap nav-in">
+<a href="#home" class="logo">ADITYA<span>.DEV</span></a>
+<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+<div class="links" id="links">
+<a href="#home" class="on">Home</a><a href="#info">Info</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+<a href="#contact" class="cta">Start a project</a>
+</div></div></nav>
+
+<header class="hero" id="home">
+<div class="grid-bg" style="position:absolute;inset:0;opacity:.35;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000,transparent)"></div>
+<div class="wrap">
+<div>
+<span class="badge"><b></b>AVAILABLE FOR NEW PROJECTS</span>
+<h1><span class="ln"><span>I Build Websites</span></span><span class="ln"><span>That Make Businesses</span></span><span class="ln"><span>Stand Out.</span></span></h1>
+<p class="lead">I'm Aditya, a website developer focused on creating modern, responsive and visually engaging websites that turn ideas into a strong online presence.</p>
+<div class="btns">
+<a class="btn p" href="#projects">View My Projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<a class="btn g" href="#contact">Let's Work Together</a>
+</div>
+<div class="quotes"><span>"Build a solid online presence."</span><span>"Your idea. Your brand. Your website."</span><span>"Turn your vision into the web."</span><span>"Don't just exist online. Stand out."</span></div>
+</div>
+<div style="position:relative">
+<div class="dots"></div>
+<div class="frame">
+<svg viewBox="0 0 560 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract website layout illustration">
+<defs><pattern id="g" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#1d1d1d"/></pattern>
+<linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0d0d0d"/></linearGradient></defs>
+<rect width="560" height="620" fill="#050505"/><rect width="560" height="620" fill="url(#g)"/>
+<rect x="40" y="46" width="480" height="340" rx="16" fill="#0c0c0c" stroke="#3a3a3a"/>
+<path d="M40 84H520" stroke="#2c2c2c"/><circle cx="62" cy="65" r="5" fill="#555"/><circle cx="80" cy="65" r="5" fill="#444"/><circle cx="98" cy="65" r="5" fill="#333"/>
+<rect x="130" y="56" width="250" height="18" rx="9" fill="#181818"/>
+<rect x="68" y="112" width="210" height="16" rx="8" fill="#f5f5f5"/><rect x="68" y="140" width="150" height="16" rx="8" fill="#f5f5f5"/>
+<rect x="68" y="176" width="180" height="7" rx="3" fill="#555"/><rect x="68" y="192" width="140" height="7" rx="3" fill="#3a3a3a"/>
+<rect x="68" y="220" width="86" height="28" rx="14" fill="#fff"/><rect x="164" y="220" width="86" height="28" rx="14" fill="none" stroke="#555"/>
+<rect x="310" y="106" width="182" height="150" rx="12" fill="url(#sh)" stroke="#3a3a3a"/>
+<path d="M330 236l38-60 26 34 22-26 50 52z" fill="#f5f5f5" opacity=".9"/><circle cx="450" cy="138" r="14" fill="#f5f5f5"/>
+<rect x="68" y="284" width="130" height="80" rx="10" fill="#111" stroke="#2c2c2c"/><rect x="215" y="284" width="130" height="80" rx="10" fill="#111" stroke="#2c2c2c"/><rect x="362" y="284" width="130" height="80" rx="10" fill="#111" stroke="#2c2c2c"/>
+<path d="M84 312h50M231 312h70M378 312h40" stroke="#666" stroke-width="6" stroke-linecap="round"/><path d="M84 332h80M231 332h50M378 332h84" stroke="#333" stroke-width="5" stroke-linecap="round"/>
+<rect x="150" y="360" width="150" height="220" rx="24" fill="#0c0c0c" stroke="#5a5a5a" stroke-width="1.5"/>
+<rect x="215" y="368" width="20" height="5" rx="2.5" fill="#333"/>
+<rect x="164" y="392" width="122" height="12" rx="6" fill="#f5f5f5"/><rect x="164" y="412" width="86" height="12" rx="6" fill="#f5f5f5"/>
+<rect x="164" y="440" width="100" height="6" rx="3" fill="#555"/><rect x="164" y="460" width="122" height="52" rx="10" fill="url(#sh)" stroke="#333"/>
+<rect x="164" y="528" width="122" height="24" rx="12" fill="#fff"/>
+<g stroke="#3a3a3a" fill="none"><path d="M340 420h180M340 440h140M340 460h160" stroke-dasharray="3 6"/><rect x="340" y="490" width="180" height="90" rx="14"/></g>
+<g fill="#f5f5f5" font-family="Helvetica,Arial,sans-serif" font-size="13"><text x="356" y="522">&lt;/&gt; clean code</text><text x="356" y="546" fill="#777">responsive · fast</text></g>
+</svg>
+<div class="float a">Mobile · Tablet · Desktop</div>
+<div class="float b">Pixel-perfect UI</div>
+</div>
+</div>
+</div>
+</header>
+
+<section id="info"><div class="wrap">
+<div class="head rv"><h2>INFO</h2><p>Who's behind the code.</p></div>
+<div class="info">
+<div class="about rv">
+<p>I'm Aditya, a website developer passionate about creating modern and engaging websites. I focus on clean UI, responsive layouts, strong visual presentation and smooth user experiences.</p>
+<p>Whether it's a business website, portfolio, landing page or a custom web experience, I aim to transform ideas into websites that look professional and work beautifully across every device.</p>
+<div class="focus"><h3>What I Focus On</h3><div class="chips"><span class="chip">Clean Design</span><span class="chip">Responsive Development</span><span class="chip">User Experience</span><span class="chip">Performance</span><span class="chip">Modern Visuals</span><span class="chip">Professional Branding</span></div></div>
+</div>
+<div class="cards4">
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg></div><h3>WEB DEVELOPMENT</h3><p>Modern and responsive websites built for today's devices.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="13" height="10" rx="2"/><rect x="14" y="9" width="7" height="11" rx="2"/></svg></div><h3>RESPONSIVE DESIGN</h3><p>Websites that look great on mobile, tablet and desktop.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/><circle cx="18" cy="12" r="2"/></svg></div><h3>MODERN UI</h3><p>Clean layouts, strong typography and engaging visual experiences.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></div><h3>CUSTOM WEBSITES</h3><p>Unique websites designed around the client's brand and goals.</p></div>
+</div></div></div></section>
+
+<section id="projects" style="background:var(--s1);border-block:1px solid var(--line)"><div class="wrap">
+<div class="head rv"><h2>PROJECTS</h2><p>A few things I've built.</p></div>
+<article class="proj rv">
+<a class="browser" href="https://irongymweb.vercel.app/" target="_blank" rel="noopener" aria-label="Open The Iron Gym website">
+<div class="bar"><i></i><i></i><i></i><span class="url">irongymweb.vercel.app</span></div>
+<div class="shot">
+<svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preview of The Iron Gym website">
+<defs><linearGradient id="ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b2b2b"/><stop offset="1" stop-color="#080808"/></linearGradient>
+<pattern id="st" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v12" stroke="#1a1a1a" stroke-width="3"/></pattern></defs>
+<rect width="720" height="460" fill="#050505"/>
+<g font-family="Helvetica,Arial,sans-serif" fill="#f5f5f5"><text x="36" y="44" font-size="15" font-weight="700" letter-spacing="3">THE IRON GYM</text>
+<g font-size="11" fill="#888"><text x="440" y="43">Home</text><text x="490" y="43">Facilities</text><text x="560" y="43">Plans</text></g>
+<rect x="622" y="28" width="64" height="24" rx="12" fill="#fff"/><text x="637" y="44" font-size="11" fill="#000" font-weight="700">JOIN</text>
+<text x="36" y="150" font-size="52" font-weight="800" letter-spacing="-1">FORGE</text><text x="36" y="205" font-size="52" font-weight="800" letter-spacing="-1">YOUR</text><text x="36" y="260" font-size="52" font-weight="800" letter-spacing="-1" fill="none" stroke="#fff" stroke-width="1.3">STRENGTH.</text>
+<text x="36" y="298" font-size="12" fill="#888">Train hard. Live stronger. Every single day.</text>
+<rect x="36" y="318" width="120" height="36" rx="18" fill="#fff"/><text x="60" y="341" font-size="12" fill="#000" font-weight="700">JOIN NOW</text>
+<rect x="168" y="318" width="120" height="36" rx="18" fill="none" stroke="#555"/><text x="192" y="341" font-size="12">OUR PLANS</text></g>
+<rect x="380" y="90" width="304" height="270" rx="18" fill="url(#ig)" stroke="#3a3a3a"/><rect x="380" y="90" width="304" height="270" rx="18" fill="url(#st)" opacity=".6"/>
+<g fill="#f5f5f5"><rect x="424" y="212" width="216" height="12" rx="6"/><rect x="410" y="180" width="26" height="76" rx="6"/><rect x="392" y="192" width="20" height="52" rx="5"/><rect x="628" y="180" width="26" height="76" rx="6"/><rect x="652" y="192" width="20" height="52" rx="5"/></g>
+<g font-family="Helvetica,Arial,sans-serif" font-size="11"><g fill="#0c0c0c" stroke="#2c2c2c"><rect x="36" y="384" width="200" height="52" rx="10"/><rect x="260" y="384" width="200" height="52" rx="10"/><rect x="484" y="384" width="200" height="52" rx="10"/></g>
+<g fill="#ddd"><text x="52" y="415">Strength Zone</text><text x="276" y="415">Cardio Floor</text><text x="500" y="415">Personal Training</text></g></g>
+</svg></div></a>
+<div class="pinfo">
+<span class="cat">GYM WEBSITE / BUSINESS WEBSITE</span>
+<h3>THE IRON GYM</h3>
+<p>A modern website concept created for a fitness and gym brand, designed to present the gym, its facilities and overall brand experience through a clean and engaging online presence.</p>
+<a class="plink" href="https://irongymweb.vercel.app/" target="_blank" rel="noopener">https://irongymweb.vercel.app/</a>
+<div class="tags"><code>Responsive</code><code>Modern UI</code><code>Business Website</code><code>Web Development</code></div>
+<div class="btns" style="margin-top:0">
+<a class="btn p" href="https://irongymweb.vercel.app/" target="_blank" rel="noopener">LIVE WEBSITE <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+<a class="btn g" href="https://irongymweb.vercel.app/" target="_blank" rel="noopener">VIEW PROJECT</a>
+</div></div>
+</article>
+<article class="proj alt rv">
+<a class="browser" href="https://spyrit-india.vercel.app/" target="_blank" rel="noopener" aria-label="Open Spyrit India website">
+<div class="bar"><i></i><i></i><i></i><span class="url">spyrit-india.vercel.app</span></div>
+<div class="shot">
+<svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preview of the Spyrit India website">
+<defs><radialGradient id="wd" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#2e2e2e"/><stop offset="1" stop-color="#090909"/></radialGradient>
+<linearGradient id="wb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1a1a1a"/><stop offset=".5" stop-color="#333"/><stop offset="1" stop-color="#1a1a1a"/></linearGradient></defs>
+<rect width="720" height="460" fill="#050505"/>
+<g font-family="Georgia,'Times New Roman',serif" fill="#f5f5f5"><text x="36" y="44" font-size="14" letter-spacing="4">SPYRIT INDIA</text>
+<text x="36" y="150" font-size="44">Feel the</text><text x="36" y="200" font-size="44">Luxury on</text><text x="36" y="250" font-size="44" font-style="italic" fill="none" stroke="#fff" stroke-width="1.1">Your Wrist.</text>
+<text x="36" y="288" font-size="12" fill="#888" font-family="Helvetica,Arial,sans-serif">Timeless designs. Refined details.</text>
+<rect x="36" y="312" width="124" height="36" rx="18" fill="#fff"/><text x="62" y="335" font-size="12" fill="#000" font-family="Helvetica,Arial,sans-serif" font-weight="700">PURCHASE</text>
+<text x="36" y="420" font-size="13" font-style="italic" fill="#777">"Your time. Your style. Your statement."</text></g>
+<rect x="440" y="20" width="110" height="420" rx="30" fill="url(#wb)" stroke="#333"/>
+<circle cx="495" cy="230" r="118" fill="#0c0c0c" stroke="#5a5a5a" stroke-width="2"/>
+<circle cx="495" cy="230" r="104" fill="url(#wd)" stroke="#3a3a3a"/>
+<g stroke="#f5f5f5" stroke-linecap="round"><path d="M495 136v14M495 310v14M401 230h14M575 230h14" stroke-width="3"/><path d="M542 148l-7 12M448 148l7 12M542 312l-7-12M448 312l7-12M578 183l-12 7M412 183l12 7M578 277l-12-7M412 277l12-7" stroke-width="1.5" opacity=".6"/></g>
+<path d="M495 230L495 168" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M495 230L540 252" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M495 230L462 200" stroke="#777" stroke-width="1.5"/><circle cx="495" cy="230" r="6" fill="#fff"/>
+<g fill="#0c0c0c" stroke="#2c2c2c"><rect x="580" y="60" width="104" height="64" rx="10"/><rect x="580" y="140" width="104" height="64" rx="10"/><rect x="580" y="320" width="104" height="64" rx="10"/><rect x="580" y="400" width="104" height="40" rx="10"/></g>
+<g stroke="#555" stroke-width="5" stroke-linecap="round"><path d="M596 82h50M596 166h36M596 342h56M596 418h30"/></g>
+<g stroke="#333" stroke-width="4" stroke-linecap="round"><path d="M596 100h70M596 184h60M596 360h70"/></g>
+</svg></div></a>
+<div class="pinfo">
+<span class="cat">WATCH BRAND / E-COMMERCE WEBSITE</span>
+<h3>SPYRIT INDIA</h3>
+<p>A premium brand website for a watch label, built around timeless designs and refined details. A clean, image-led layout presents the collection and sends visitors straight to Instagram to purchase.</p>
+<a class="plink" href="https://spyrit-india.vercel.app/" target="_blank" rel="noopener">https://spyrit-india.vercel.app/</a>
+<div class="tags"><code>Responsive</code><code>Luxury Branding</code><code>Brand Website</code><code>Web Development</code></div>
+<div class="btns" style="margin-top:0">
+<a class="btn p" href="https://spyrit-india.vercel.app/" target="_blank" rel="noopener">LIVE WEBSITE <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+<a class="btn g" href="https://spyrit-india.vercel.app/" target="_blank" rel="noopener">VIEW PROJECT</a>
+</div></div>
+</article>
+<!-- Add more projects: duplicate an <article class="proj"> block above -->
+<div class="soon rv">More projects are on the way. Have one in mind? <a href="#contact" style="color:#fff;border-bottom:1px solid var(--line2)">Let's build it.</a></div>
+</div></section>
+
+<section id="services"><div class="wrap">
+<div class="head rv"><h2>WHAT I DO</h2></div>
+<div class="g3">
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4"/></svg></div><h3>Website Development</h3><p>Fast, well-structured sites built from scratch.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg></div><h3>Landing Pages</h3><p>Focused pages that turn visitors into customers.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M4 13h16"/></svg></div><h3>Business Websites</h3><p>Professional sites that build trust for your brand.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></div><h3>Portfolio Websites</h3><p>Show your work with a site as sharp as the work.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="9" rx="1.5"/><rect x="15" y="9" width="6" height="11" rx="1.5"/></svg></div><h3>Responsive Design</h3><p>Layouts that adapt cleanly to every screen size.</p></div>
+<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20l4-1L19 8l-3-3L5 16zM14 7l3 3"/></svg></div><h3>UI/UX Design</h3><p>Clear, intuitive interfaces people enjoy using.</p></div>
+</div></div></section>
+
+<section id="why" style="padding-top:0"><div class="wrap why">
+<div class="head rv" style="margin:0"><h2>WHY ADITYA?</h2><p>What you get when we work together.</p></div>
+<div class="why-list rv">
+<div><h3>Modern Design</h3><p>Websites designed to look current, clean and professional.</p></div>
+<div><h3>Responsive Everywhere</h3><p>Designed to work smoothly across phones, tablets and desktops.</p></div>
+<div><h3>Attention to Detail</h3><p>Every section, spacing, typography and interaction is carefully considered.</p></div>
+<div><h3>Built Around Your Idea</h3><p>Your website should represent your brand, not look like everyone else's.</p></div>
+</div></div></section>
+
+<section id="contact" style="padding-top:0"><div class="wrap">
+<div class="contact rv">
+<div class="grid-bg" style="position:absolute;inset:0;opacity:.18;pointer-events:none;-webkit-mask-image:linear-gradient(120deg,#000,transparent 60%);mask-image:linear-gradient(120deg,#000,transparent 60%)"></div>
+<div>
+<h2>LET'S BUILD SOMETHING.</h2>
+<p class="lead">Have an idea for a website? Let's turn it into something people remember.</p>
+<a class="btn p" href="#name" id="start">START A PROJECT <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<a class="ig" href="https://instagram.com/nexora_digital.in" target="_blank" rel="noopener">
+<span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="#fff"/></svg></span>
+<div><small>Instagram</small><span>@nexora_digital.in</span></div></a>
+</div>
+<form id="form" novalidate>
+<label>Name<input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name"></label>
+<label>Email<input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+<label>Project Type<select id="type" name="type"><option>Business Website</option><option>Landing Page</option><option>Portfolio Website</option><option>Custom Web Experience</option><option>Something else</option></select></label>
+<label>Message<textarea id="msg" name="msg" required placeholder="Tell me about your idea"></textarea></label>
+<button class="btn p" type="submit">Send Message</button>
+<p class="note" id="note" role="status"></p>
+</form>
+</div></div></section>
+
+<footer><div class="wrap">
+<div class="foot">
+<div><h4>ADITYA</h4><p>Website Developer</p><p style="margin-top:1rem">"Building ideas into the web."</p></div>
+<div><p style="margin-bottom:.4rem">Social</p><a href="https://instagram.com/nexora_digital.in" target="_blank" rel="noopener">Instagram — @nexora_digital.in</a></div>
+</div>
+<div class="copy"><span>© 2026 Aditya. All Rights Reserved.</span><a href="#home">Back to top</a></div>
+</div></footer>
+
+<script>
+const $=s=>document.querySelector(s),nav=$('#nav'),links=$('#links'),burger=$('#burger');
+const setNav=()=>nav.classList.toggle('solid',scrollY>20);setNav();addEventListener('scroll',setNav,{passive:true});
+const toggle=o=>{links.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':''};
+burger.onclick=()=>toggle(!links.classList.contains('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggle(false)));
+addEventListener('resize',()=>{if(innerWidth>960)toggle(false)});
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+'ms';io.observe(el)});
+const secs=['home','info','projects','contact'].map(id=>document.getElementById(id));
+const so=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)links.querySelectorAll('a:not(.cta)').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>so.observe(s));
+const cur=$('#cur');
+if(matchMedia('(hover:hover)').matches){
+ addEventListener('mousemove',e=>{cur.style.opacity=1;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+ document.querySelectorAll('a,button,.browser').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'))});
+}
+$('#start').addEventListener('click',e=>{e.preventDefault();$('#form').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>$('#name').focus({preventScroll:true}),500)});
+$('#form').addEventListener('submit',async e=>{
+ e.preventDefault();const n=$('#note'),name=$('#name').value.trim(),em=$('#email').value.trim(),m=$('#msg').value.trim();
+ if(!name||!/^\S+@\S+\.\S+$/.test(em)||!m){n.textContent='Please add your name, a valid email and a message.';return}
+ const text=`Hi Aditya, I'm ${name} (${em}).\nProject type: ${$('#type').value}\n\n${m}`;
+ try{await navigator.clipboard.writeText(text);n.textContent='Message copied. Instagram is opening — paste it into a DM to send.'}
+ catch{n.textContent='Opening Instagram — send your message there as a DM.'}
+ setTimeout(()=>window.open('https://instagram.com/nexora_digital.in','_blank','noopener'),900);
+});
+</script>
+</body>
+</html>
